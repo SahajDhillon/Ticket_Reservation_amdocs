@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.io.FileWriter;
 
 public class Registration {
-
+    String Uname;
+    String Pass;
     private void register() throws FileNotFoundException
     {
         Scanner sc=new Scanner(System.in);
