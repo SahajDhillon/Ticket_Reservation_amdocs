@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Login {
@@ -42,10 +43,38 @@ public class Login {
             }
 
         } else {
-            System.out.println("Sorry, email not found");
+            System.out.println("Sorry, username not found");
             System.out.println("Try Again");
             MyJDBC.menu();
         }
+    }
+
+    //Generate random String..
+    static String getAlphaNumericString(int n)
+    {
+
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+
+        return sb.toString();
     }
     public static void profile(Connection connection) throws SQLException {
         System.out.println("Welcome, to your account select booking");
@@ -60,13 +89,15 @@ public class Login {
         System.out.println("Enter destination");
         preparedStatement.setString(2, scanner.nextLine());
 
-        String ticketNum ="1234";
+        Random rand = new Random();
+
+        String ticketNum =getAlphaNumericString(10);
         preparedStatement.setString(3, ticketNum);
 
         int rows = preparedStatement.executeUpdate();
 
         if (rows > 0 ) {
-            System.out.println("Your Ticket is booked successfully , Your ticket number is " + ticketNum);
+            System.out.println("Your Ticket is booked successfully , Your ticket is " + ticketNum);
             System.out.println('\n');
 
 

@@ -34,10 +34,11 @@ public class Registration {
         if (rows > 0 ) {
             System.out.println("Account made successfully. Please login to start booking.");
             System.out.println('\n');
-
+            MyJDBC.menu();
 
         }else {
             System.out.println("Something went wrong. Try again later.");
+            MyJDBC.menu();
         }
 //    private void register() throws FileNotFoundException
 //    {
