@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class MyJDBC {
-
-    String chkUsername;
     public static void main(String[] args) {
 
         chkPass();
