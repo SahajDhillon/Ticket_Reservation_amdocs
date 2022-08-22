@@ -61,7 +61,7 @@ public class Login {
         preparedStatement.setString(2, scanner.nextLine());
 
         String ticketNum ="1234";
-        preparedStatement.setString(2, ticketNum);
+        preparedStatement.setString(3, ticketNum);
 
         int rows = preparedStatement.executeUpdate();
 
