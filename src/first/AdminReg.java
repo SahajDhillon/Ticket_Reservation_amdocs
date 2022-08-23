@@ -1,16 +1,17 @@
 package first;
 
-import java.sql.*;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Registration {
+public class AdminReg {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void signUp(Connection connection) throws SQLException {
+    public static void adReg(Connection connection) throws SQLException {
         System.out.println("Welcome, make an account for free!!");
 
-        String sql = "insert into users(username, password , email , phone) values (?,?,?,?) ";
+        String sql = "insert into admin(adminName, adminPass) values (?,?) ";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -20,16 +21,10 @@ public class Registration {
         System.out.println("Enter password");
         preparedStatement.setString(2, scanner.nextLine());
 
-        System.out.println("Enter email");
-        preparedStatement.setString(3, scanner.nextLine());
-
-        System.out.println("Enter phone");
-        preparedStatement.setString(4, scanner.nextLine());
-
         int rows = preparedStatement.executeUpdate();
 
         if (rows > 0 ) {
-            System.out.println("Account made successfully. Please login to start booking.");
+            System.out.println("Admin Account made successfully. ");
             System.out.println('\n');
             MyJDBC.menu();
 

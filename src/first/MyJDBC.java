@@ -20,11 +20,20 @@ public class MyJDBC {
 
         System.out.println("1: Sign up");
         System.out.println("2: Login");
+        System.out.println("3: Admin Panel");
+        System.out.println("5: Exit");
         int choice = Integer.parseInt(scanner.nextLine());
         if(choice ==1){
             Registration.signUp(connection);
-        }else if(choice==2){
+        }
+        else if(choice==2){
             Login.login(connection);
+        }
+        else if (choice == 3) {
+            AdminLogin.adLogin(connection);
+        }
+        else if (choice == 5) {
+            System.exit(0);
         }
     }
 }

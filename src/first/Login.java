@@ -13,7 +13,10 @@ public class Login {
 
         System.out.println("Welcome back, login to your account."+ '\n');
         String sql = "select * from users where username = ?";
+
+        //?(passing parameter) its value will be set by calling the setter methods of prepared statement.
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
         System.out.println("Enter username");
         preparedStatement.setString(1, scanner.nextLine());
 
@@ -24,7 +27,6 @@ public class Login {
 
         if (result.next()) {
             String correctPassword = result.getString("password");
-            String username = result.getString("username");
             if ((correctPassword).equals(password)) {
                 System.out.println("_____________\n");
                 System.out.println("You are logged in");
