@@ -1,15 +1,13 @@
 package first;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Login {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     public static void login(Connection connection) throws SQLException {
 
 
@@ -21,10 +19,6 @@ public class Login {
 
         System.out.println("Enter your password");
         String password = scanner.nextLine();
-
-//		String sql = "select password from user where email = "+'\u0022' + email + '\u0022';
-
-        //String sql = "insert into users(username, password) values (?,?) ";
 
         ResultSet result = preparedStatement.executeQuery();
 
@@ -50,7 +44,7 @@ public class Login {
     }
 
     //Generate random String..
-    static String getAlphaNumericString(int n)
+    static String getAlphaNumericString()
     {
 
         // chose a Character random from this String
@@ -59,9 +53,9 @@ public class Login {
                 + "abcdefghijklmnopqrstuvxyz";
 
         // create StringBuffer size of AlphaNumericString
-        StringBuilder sb = new StringBuilder(n);
+        StringBuilder sb = new StringBuilder(10);
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < 10; i++) {
 
             // generate a random number between
             // 0 to AlphaNumericString variable length
@@ -88,10 +82,9 @@ public class Login {
 
         System.out.println("Enter destination");
         preparedStatement.setString(2, scanner.nextLine());
+        //Random rand = new Random();
 
-        Random rand = new Random();
-
-        String ticketNum =getAlphaNumericString(10);
+        String ticketNum =getAlphaNumericString();
         preparedStatement.setString(3, ticketNum);
 
         int rows = preparedStatement.executeUpdate();
