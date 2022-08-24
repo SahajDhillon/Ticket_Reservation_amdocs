@@ -1,9 +1,7 @@
 package first;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Login {
@@ -30,7 +28,21 @@ public class Login {
             if ((correctPassword).equals(password)) {
                 System.out.println("_____________\n");
                 System.out.println("You are logged in");
-                profile(connection);
+                System.out.println("1. Ticket Reservation");
+                System.out.println("2. View Ticket");
+                Scanner obj = new Scanner(System.in);
+                int j = obj.nextInt();
+                if(j==1){
+                    profile(connection);
+                }
+                else if (j==2) {
+                    System.out.println("Ticket:\n\n");
+                    showTicket(connection);
+                }else{
+                    System.out.println("invalid input returning to main menu..");
+                    MyJDBC.menu();
+                }
+
             } else {
                 System.out.println("Invalid password");
                 System.out.println("Try again");
@@ -75,7 +87,7 @@ public class Login {
     public static void profile(Connection connection) throws SQLException {
         System.out.println("Welcome, to your account select booking");
 
-        String sql = "insert into tickets(source, destination, ticketNum) values (?,?,?) ";
+        String sql = "insert into tickets(source, destination, passenger1, passenger2, passenger3, ticketNum) values (?,?,?,?,?,?) ";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -85,9 +97,33 @@ public class Login {
         System.out.println("Enter destination");
         preparedStatement.setString(2, scanner.nextLine());
         //Random rand = new Random();
+        System.out.println("Enter passenger name:");
+        preparedStatement.setString(3, scanner.nextLine());
+
+
+        System.out.println("do you want to add another passenger y/n ?");
+        Scanner myObj = new Scanner(System.in);
+        String ans = myObj.nextLine();
+        if(Objects.equals(ans, "y")){
+            System.out.println("Enter passenger name:");
+            preparedStatement.setString(4, scanner.nextLine());
+        }else{
+            preparedStatement.setNull(4, Types.NULL);
+        }
+
+        System.out.println("do you want to add another passenger y/n ?");
+        Scanner myObj2 = new Scanner(System.in);
+        String ans2 = myObj2.nextLine();
+        if(Objects.equals(ans2, "y")){
+            System.out.println("Enter passenger name:");
+            preparedStatement.setString(5, scanner.nextLine());
+        }else{
+            preparedStatement.setNull(5, Types.NULL);
+        }
+
 
         String ticketNum =getAlphaNumericString();
-        preparedStatement.setString(3, ticketNum);
+        preparedStatement.setString(6, ticketNum);
 
         int rows = preparedStatement.executeUpdate();
 
@@ -98,6 +134,29 @@ public class Login {
 
         }else {
             System.out.println("Something went wrong. Try again later.");
+        }
+    }
+    public static void showTicket(Connection connection) throws SQLException{
+        System.out.println("Welcome back, login to your account."+ '\n');
+        String sql = "select ticketNum from tickets where passenger1 = ?";
+
+        //?(passing parameter) its value will be set by calling the setter methods of prepared statement.
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        System.out.println("Enter passenger");
+        preparedStatement.setString(1, scanner.nextLine());
+
+        ResultSet result = preparedStatement.executeQuery();
+
+        if (result.next()) {
+            String ticket = result.getString("ticketNum");
+
+                System.out.println("_____________\n");
+                System.out.println("Your PNR number is:"+ticket);
+        } else {
+            System.out.println("Sorry, username not found");
+            System.out.println("Try Again");
+            MyJDBC.menu();
         }
     }
 }
