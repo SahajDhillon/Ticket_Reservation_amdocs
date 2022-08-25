@@ -28,7 +28,7 @@ public class AdminLogin {
         if (result.next()) {
             String correctPassword = result.getString("adminPass");
             if ((correctPassword).equals(password)) {
-                System.out.println("_____________\n");
+                System.out.println("##########      ADMIN PANEL     ###########\n");
                 System.out.println("You are logged in");
                 System.out.println("1: Update User");
                 System.out.println("2: Delete User");

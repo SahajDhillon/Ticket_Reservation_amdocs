@@ -9,7 +9,7 @@ public class AdminReg {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void adReg(Connection connection) throws SQLException {
-        System.out.println("Welcome, make an account for free!!");
+        System.out.println("Welcome, make an account for admin!!");
 
         String sql = "insert into admin(adminName, adminPass) values (?,?) ";
 

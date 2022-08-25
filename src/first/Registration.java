@@ -8,7 +8,7 @@ public class Registration {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void signUp(Connection connection) throws SQLException {
-        System.out.println("Welcome, make an account for free!!");
+        System.out.println("Welcome, Make an account !!");
 
         String sql = "insert into users(username, password , email , phone) values (?,?,?,?) ";
 

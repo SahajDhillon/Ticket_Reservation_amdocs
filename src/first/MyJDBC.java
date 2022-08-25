@@ -18,10 +18,11 @@ public class MyJDBC {
     }
     public static void menu() throws SQLException {
 
+        System.out.println("###########      RAILWAY TICKET MAIN MENU      ##############");
         System.out.println("1: Sign up");
         System.out.println("2: Login");
         System.out.println("3: Admin Panel");
-        System.out.println("5: Exit");
+        System.out.println("4: Exit");
         int choice = Integer.parseInt(scanner.nextLine());
         if(choice ==1){
             Registration.signUp(connection);

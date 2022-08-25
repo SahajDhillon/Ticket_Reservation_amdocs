@@ -26,10 +26,14 @@ public class Login {
         if (result.next()) {
             String correctPassword = result.getString("password");
             if ((correctPassword).equals(password)) {
+
+                //After logging in..
+
                 System.out.println("_____________\n");
                 System.out.println("You are logged in");
                 System.out.println("1. Ticket Reservation");
                 System.out.println("2. View Ticket");
+                System.out.println("3. Back to main menu");
                 Scanner obj = new Scanner(System.in);
                 int j = obj.nextInt();
                 if(j==1){
@@ -38,7 +42,10 @@ public class Login {
                 else if (j==2) {
                     System.out.println("Ticket:\n\n");
                     showTicket(connection);
-                }else{
+                }else if (j==3) {
+                    MyJDBC.menu();
+                }
+                else{
                     System.out.println("invalid input returning to main menu..");
                     MyJDBC.menu();
                 }
@@ -84,8 +91,10 @@ public class Login {
 
         return sb.toString();
     }
+
+    // Ticket Booking System..
     public static void profile(Connection connection) throws SQLException {
-        System.out.println("Welcome, to your account select booking");
+        System.out.println("##########   TICKET BOOKER   ##########");
 
         String sql = "insert into tickets(source, destination, passenger1, passenger2, passenger3, ticketNum) values (?,?,?,?,?,?) ";
 
@@ -96,7 +105,7 @@ public class Login {
 
         System.out.println("Enter destination");
         preparedStatement.setString(2, scanner.nextLine());
-        //Random rand = new Random();
+
         System.out.println("Enter passenger name:");
         preparedStatement.setString(3, scanner.nextLine());
 
@@ -136,6 +145,8 @@ public class Login {
             System.out.println("Something went wrong. Try again later.");
         }
     }
+
+    // Ticking Viewing System
     public static void showTicket(Connection connection) throws SQLException{
         System.out.println("Welcome back, login to your account."+ '\n');
         String sql = "select ticketNum from tickets where passenger1 = ?";
